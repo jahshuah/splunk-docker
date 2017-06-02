@@ -1,3 +1,3 @@
 
-docker push splunk/splunk:6.6.0
-docker push splunk/splunk:latest
+docker push jahshuah/splunk:6.6.1
+docker push jahshuah/splunk:latest
