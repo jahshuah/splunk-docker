@@ -25,7 +25,7 @@ RUN apt-get install -y libgssapi-krb5-2
 
 # Download official Splunk release, verify checksum and unzip in /opt/splunk
 # Also backup etc folder, so it will be later copied to the linked volume
-RUN apt-get install -y wget sudo \
+RUN apt-get install -y wget sudo vim \
     && mkdir -p ${SPLUNK_HOME} \
     && wget -qO /tmp/${SPLUNK_FILENAME} https://download.splunk.com/products/${SPLUNK_PRODUCT}/releases/${SPLUNK_VERSION}/linux/${SPLUNK_FILENAME} \
     && wget -qO /tmp/${SPLUNK_FILENAME}.md5 https://download.splunk.com/products/${SPLUNK_PRODUCT}/releases/${SPLUNK_VERSION}/linux/${SPLUNK_FILENAME}.md5 \
@@ -43,6 +43,22 @@ RUN apt-get install -y wget sudo \
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod +x /sbin/entrypoint.sh
+
+# Add a new app to Splunk
+COPY splunk-add-on-builder_212.tgz ${SPLUNK_HOME}/etc/apps/splunk-add-on-builder_212.tgz
+RUN cd ${SPLUNK_HOME}/etc/apps \
+    && tar zxf splunk-add-on-builder_212.tgz \
+    && chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/etc/apps
+
+COPY splunk-datasets-add-on_10.tgz ${SPLUNK_HOME}/etc/apps/splunk-datasets-add-on_10.tgz
+RUN cd ${SPLUNK_HOME}/etc/apps \
+    && tar zxf splunk-datasets-add-on_10.tgz \
+    && chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/etc/apps
+
+COPY lookup-file-editor_270.tgz ${SPLUNK_HOME}/etc/apps/lookup-file-editor_270.tgz
+RUN cd ${SPLUNK_HOME}/etc/apps \
+    && tar zxf lookup-file-editor_270.tgz \
+    && chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/etc/apps
 
 # Copy new license
 #COPY ./Splunk_Enterprise_Q3FY17.lic /var/opt/splunk/etc/licenses/download-trial/Splunk_Enterprise_Q3FY17.lic

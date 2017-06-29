@@ -5,11 +5,11 @@ services:
   vsplunk:
     image: busybox
     volumes:
-      - /opt/splunk/etc
+      # - /opt/splunk/etc
       - /opt/splunk/var
-  splunkenterprise:
+  splunkbox:
     #build: .
-    hostname: splunkenterprise
+    hostname: splunkbox
     image: jahshuah/splunk:6.6.1
     environment:
       SPLUNK_START_ARGS: --accept-license
