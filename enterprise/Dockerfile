@@ -1,8 +1,8 @@
 FROM debian:jessie
 
 ENV SPLUNK_PRODUCT splunk
-ENV SPLUNK_VERSION 6.6.1
-ENV SPLUNK_BUILD aeae3fe0c5af
+ENV SPLUNK_VERSION 6.6.2
+ENV SPLUNK_BUILD 4b804538c686
 ENV SPLUNK_FILENAME splunk-${SPLUNK_VERSION}-${SPLUNK_BUILD}-Linux-x86_64.tgz
 
 ENV SPLUNK_HOME /opt/splunk
@@ -45,7 +45,7 @@ COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod +x /sbin/entrypoint.sh
 
 # Add a new app to Splunk
-COPY splunk-add-on-builder_212.tgz ${SPLUNK_HOME}/etc/apps/splunk-add-on-builder_212.tgz
+COPY splunk-add-on-builder_212.tgz ${SPLUNK_HOME}/etc/apps/splunk-add-on-builder_220.tgz
 RUN cd ${SPLUNK_HOME}/etc/apps \
     && tar zxf splunk-add-on-builder_212.tgz \
     && chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/etc/apps
