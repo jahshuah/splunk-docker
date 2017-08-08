@@ -47,7 +47,7 @@ RUN chmod +x /sbin/entrypoint.sh
 # Add a new app to Splunk
 COPY splunk-add-on-builder_212.tgz ${SPLUNK_HOME}/etc/apps/splunk-add-on-builder_220.tgz
 RUN cd ${SPLUNK_HOME}/etc/apps \
-    && tar zxf splunk-add-on-builder_212.tgz \
+    && tar zxf splunk-add-on-builder_220.tgz \
     && chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/etc/apps
 
 COPY splunk-datasets-add-on_10.tgz ${SPLUNK_HOME}/etc/apps/splunk-datasets-add-on_10.tgz
