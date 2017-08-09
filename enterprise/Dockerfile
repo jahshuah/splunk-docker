@@ -60,6 +60,11 @@ RUN cd ${SPLUNK_HOME}/etc/apps \
     && tar zxf lookup-file-editor_270.tgz \
     && chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/etc/apps
 
+COPY splunk-add-on-for-microsoft-windows_484.tgz ${SPLUNK_HOME}/etc/apps/splunk-add-on-for-microsoft-windows_484.tgz
+RUN cd ${SPLUNK_HOME}/etc/apps \
+    && tar zxf splunk-add-on-for-microsoft-windows_484.tgz \
+    && chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/etc/apps
+
 # Copy new license
 #COPY ./Splunk_Enterprise_Q3FY17.lic /var/opt/splunk/etc/licenses/download-trial/Splunk_Enterprise_Q3FY17.lic
 

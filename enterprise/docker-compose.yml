@@ -2,7 +2,7 @@
 # Support for Docker Compose v2, https://docs.docker.com/compose/overview/
 version: '2'
 services:
-  vsplunk:
+  splunk_vols:
     image: busybox
     volumes:
       # - /opt/splunk/etc
@@ -10,15 +10,16 @@ services:
   splunkbox:
     #build: .
     hostname: splunkbox
-    image: jahshuah/splunk:6.6.1
+    image: jahshuah/splunk:latest
     environment:
       SPLUNK_START_ARGS: --accept-license
       SPLUNK_ENABLE_LISTEN: 9997
       SPLUNK_ADD: tcp 1514
     volumes_from:
-      - vsplunk
+      - splunk_vols
     ports:
       - "8000:8000"
       - "9997:9997"
       - "8088:8088"
       - "1514:1514"
+    
